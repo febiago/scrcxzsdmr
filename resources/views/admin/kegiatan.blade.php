@@ -103,8 +103,12 @@
                           <option value="Administrasi Keuangan Perangkat Daerah">Administrasi Keuangan Perangkat Daerah</option>
                           <option value="Administrasi Kepegawaian Perangkat Daerah">Administrasi Kepegawaian Perangkat Daerah</option>
                           <option value="Administrasi Umum Perangkat Daerah">Administrasi Umum Perangkat Daerah</option>
-                          <option value="Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah">Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah</option>
-                          <option value="Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah">Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah</option>
+                          <option value="Penyelenggaraan Urusan Pemerintahan yang Tidak Dilaksanakan oleh Unit Kerja Perangkat Daerah yang Ada di Kecamatan">Penyelenggaraan Urusan Pemerintahan yang Tidak Dilaksanakan oleh Unit Kerja Perangkat Daerah yang Ada di Kecamatan</option>
+                          <option value="Koordinasi Kegiatan Pemberdayaan Desa">Koordinasi Kegiatan Pemberdayaan Desa</option>
+                          <option value="Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum">Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum</option>
+                          <option value="Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah">Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah</option>
+                          <option value=" Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa"> Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa</option>
+                            
                         </select>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nm_kegiatan"></div>
                     </div>

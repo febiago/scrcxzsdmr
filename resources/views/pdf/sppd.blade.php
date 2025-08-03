@@ -170,7 +170,7 @@
                 <td valign="top" width="100%" align="center">
                     <b id="kop">PEMERINTAH KABUPATEN PACITAN</b>
                     <br><b id="kop">KECAMATAN SUDIMORO</b>
-                    <br>Jl. Raya Solo Nomor 021 Pacitan, Telp (0357) 511032
+                    <br>Jl. Sudimoro no 22, (0357) 421001
                     <br>Website : www.sudimoro.pacitankab.go.id
                     <br>Email : kecsudimoro@gmail.com
                 </td>

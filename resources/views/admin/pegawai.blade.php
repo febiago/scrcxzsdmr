@@ -29,7 +29,6 @@
                                             <th>NIP</th>
                                             <th>Pangkat</th>
                                             <th>Jabatan</th>
-                                            <th>Kendaraan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -44,7 +43,6 @@
                                             <td>{{ $pegawai->nip }}</td>
                                             <td>{{ $pegawai->pangkat }}</td>
                                             <td>{{ $pegawai->jabatan }}</td>
-                                            <td>{{ $pegawai->kendaraan }}</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0)" id="btn-edit-pegawai" data-id="{{ $pegawai->id }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-pegawai" data-id="{{ $pegawai->id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
@@ -91,6 +89,7 @@
                         <label for="pangkat" class="control-label">PANGKAT</label>
                         <select class="form-control" id="pangkat" name="pangkat">
                           <option value="-"> - </option>
+                          <option value="Pemula (V)">Pemula (V)</option>
                           <option value="Juru Muda (I/a)">Juru Muda (I/a)</option>
                           <option value="Juru Muda Tingkat I (I/b)">Juru Muda Tingkat I (I/b)</option>
                           <option value="Juru (I/c)">Juru (I/c)</option>
@@ -116,14 +115,7 @@
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jabatan"></div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6" >
-                        <label for="name" class="control-label">KENDARAAN</label>
-                        <input type="text" class="form-control" id="kendaraan" name="kendaraan" required>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kendaraan"></div>
-                    </div>
-                </div>
-
+                        <input type="text" class="form-control" id="kendaraan" name="kendaraan" value="Kendaraan Pribadi" required hidden>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
@@ -274,6 +266,7 @@
                             <label for="name" class="control-label">Pangkat</label>
                             <select class="form-control" id="pangkat-edit" required>
                                 <option value="-" {{ old('pangkat', $pegawai->pangkat) == '-' ? 'selected' : '' }}> - </option>
+                                <option value="Pemula (V)" {{ old('pangkat', $pegawai->pangkat) == 'Pemula (V)' ? 'selected' : '' }}>Pemula (V)</option>
                                 <option value="Juru Muda (I/a)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Muda (I/a)' ? 'selected' : '' }}>Juru Muda (I/a)</option>
                                 <option value="Juru Muda Tingkat I (I/b)" {{ old('pangkat', $pegawai->pangkat) == 'Juru Muda Tingkat I (I/b)' ? 'selected' : '' }}>Juru Muda Tingkat I (I/b)</option>
                                 <option value="Juru (I/c)" {{ old('pangkat', $pegawai->pangkat) == 'Juru (I/c)' ? 'selected' : '' }}>Juru (I/c)</option>

@@ -29,30 +29,9 @@
                             <div class="card-body">
                             <form action="{{ route('sppd.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                            <div class="form-row">
-                                <div class="form-group col-md-6" >
-                                    <label for="name" class="control-label">No Surat</label>
-                                    <div class="input-group mb-2">
-                                        <input type="text" class="form-control text-right" id="no_surat1" name="no_surat1" value="000.1.2.3" required>
-                                        <input type="text" class="form-control text-right" id="no_surat2" name="no_surat2" value="{{ $totalInti }}" required>
-                                        <input type="text" class="form-control text-right" id="no_surat3" name="no_surat3" value="408.72/2025" required>
-                                    </div>
-                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat2"></div>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    {!! Form::label('pegawai', 'Pegawai') !!}
-                                    {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai') ? ' is-invalid' : ''),'placeholder' => '', 'id' => 'pegawai_utama']) !!}
-                                @error('pegawai')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="kendaraan" class="control-label">Kendaraan</label>
-                                    <input type="text" name="kendaraan" id="kendaraan" class="form-control">
-                                </div>
-                            </div>
+                                        <input hidden type="text" class="form-control text-right" id="no_surat1" name="no_surat1" value="000.1.2.3" required>
+                                        <input hidden type="text" class="form-control text-right" id="no_surat2" name="no_surat2" value="{{ $totalInti }}" required>
+                                        <input hidden type="text" class="form-control text-right" id="no_surat3" name="no_surat3" value="408.72/2025" required>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -100,6 +79,20 @@
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-perihal"></div>
                                 </div>
                             </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {!! Form::label('pegawai', 'Pegawai') !!}
+                                    {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai') ? ' is-invalid' : ''),'placeholder' => '', 'id' => 'pegawai_utama']) !!}
+                                    <input hidden type="text" class="form-control text-right" id="kendaraan" name="kendaraan" required>
+                                    @error('pegawai')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                            </div>
+
                                 <div id="error"></div>
                                 <h4>Pengikut</h4>
                                 <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah Pengikut</button>
@@ -124,14 +117,11 @@
     $(document).ready(function () {
     $('#tambah-pengikut').on('click', function () {
         var index = $('select[name="pegawai_id[]"]').length;
-        var html = '<div class="form-group col-md-4" >' +
+        var html = '<div class="form-group col-md-6" >' +
             '<label for="name" class="control-label">Nama</label>'+
             '{!! Form::select("pegawai_id[]", $pegawais, null, ["class" => "form-control select2", "placeholder" => "", "name" => "pegawai_id[]", "onchange" => "cekUnique(), getKendaraan(this)"]) !!}' +
             '</div>'+
-            '<div class="form-group col-md-2">'+
-            '<label for="angkutan" class="control-label">Kendaraan</label>'+
-            '<input type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">'+
-            '</div>';
+            '<input hidden type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">';
         
         $('#pengikut-container').append(html);
         $(".select2").select2();
