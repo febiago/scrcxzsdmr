@@ -240,7 +240,7 @@ $(function() {
     
         $.ajax({
             type: 'POST',
-            url: 'create/check-unique/',
+            url: 'create/check-unique',
             data: {
                 '_token': '{{ csrf_token() }}',
                 'tgl_berangkat': tgl_berangkat,

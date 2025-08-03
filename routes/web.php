@@ -51,9 +51,10 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
 
     // SPPD
     Route::put('/sppd/{id}', [SppdController::class, 'update'])->name('sppd.updated');
+     Route::post('/sppd/create/check-unique', [SppdController::class, 'checkUnique'])->name('check-unique');
     Route::delete('/sppd/edit/{id}', [SppdController::class, 'delete'])->name('edit.delete');
     Route::post('/sppd/{sppd}/check-unique', [SppdController::class, 'checkUnique'])->name('check-unique-edit');
-    Route::post('/sppd/create/check-unique', [SppdController::class, 'checkUnique'])->name('check-unique');
+   
     Route::get('/sppd/create/sisa-anggaran/{id}', [SppdController::class, 'getSisaAnggaran'])->name('sisa-anggaran');
     Route::get('/sppd/create/kendaraan', [SppdController::class, 'getKendaraan'])->name('kendaraan');
     Route::get('/sppd/{sppd}/edit/kendaraan', [SppdController::class, 'getKendaraan'])->name('kendaraan-edit');
