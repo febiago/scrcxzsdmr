@@ -14,7 +14,8 @@ class TujuanController extends Controller
      */
     public function index()
     {
-        //
+        $tujuans = Tujuan::all();
+        return view('admin.tujuan.index', compact('tujuans'));
     }
 
     /**
@@ -24,7 +25,7 @@ class TujuanController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tujuan.create');
     }
 
     /**
@@ -35,7 +36,12 @@ class TujuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tujuan' => 'required',
+            'pejabat' => 'required',
+        ]);
+        Tujuan::create($request->only('tujuan', 'pejabat'));
+        return redirect()->route('tujuan.index')->with('success', 'Tujuan berhasil ditambahkan!');
     }
 
     /**
@@ -46,7 +52,7 @@ class TujuanController extends Controller
      */
     public function show(Tujuan $tujuan)
     {
-        //
+        return view('admin.tujuan.show', compact('tujuan'));
     }
 
     /**
@@ -57,7 +63,7 @@ class TujuanController extends Controller
      */
     public function edit(Tujuan $tujuan)
     {
-        //
+        return view('admin.tujuan.edit', compact('tujuan'));
     }
 
     /**
@@ -69,7 +75,12 @@ class TujuanController extends Controller
      */
     public function update(Request $request, Tujuan $tujuan)
     {
-        //
+        $request->validate([
+            'tujuan' => 'required|unique:tujuans,tujuan,' . $tujuan->id,
+            'pejabat' => 'required',
+        ]);
+        $tujuan->update($request->only('tujuan', 'pejabat'));
+        return redirect()->route('tujuan.index')->with('success', 'Tujuan berhasil diupdate!');
     }
 
     /**
@@ -80,6 +91,7 @@ class TujuanController extends Controller
      */
     public function destroy(Tujuan $tujuan)
     {
-        //
+        $tujuan->delete();
+        return redirect()->route('tujuan.index')->with('success', 'Tujuan berhasil dihapus!');
     }
 }

@@ -10,7 +10,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\RekapController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
-
+use App\Http\Controllers\TujuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +67,6 @@ Route::middleware(['auth', 'role:admin,operator'])->group(function () {
 
     // Laporan
     Route::get('/rekap', [RekapController::class, 'index'])->name('index');
-
     Route::post('/rekap/filter', [RekapController::class, 'filter'])->name('filter');
 });
 
@@ -75,4 +74,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/pegawai', PegawaiController::class);
     Route::resource('/kegiatan', KegiatanController::class);
     Route::resource('/jenis', JenisSppdController::class);
+    Route::resource('/tujuan', TujuanController::class);
 });
