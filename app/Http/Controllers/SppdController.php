@@ -192,7 +192,7 @@ class SppdController extends Controller
     public function show($id)
     {
         $sppd = Sppd::findOrFail($id);
-        return view('admin.sppd.show', compact('sppd'));
+        return view('admin.sppd', compact('sppd'));
     }
 
     public function edit($id)
@@ -298,7 +298,8 @@ class SppdController extends Controller
                 }
             }
         }
-        return redirect()->back()->with('success', 'Perjalanan Dinas berhasil diperbarui!');
+        return redirect()->route('sppd.index')->with('success', 'Perjalanan Dinas berhasil diperbarui!');
+
     }
 
     public function delete($id)
