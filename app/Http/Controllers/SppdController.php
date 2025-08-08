@@ -212,7 +212,6 @@ class SppdController extends Controller
         return view('admin.sppd.edit', $data, compact('pegawais', 'jenis', 'kegiatans', 'sppd', 'pegawaiInti', 'pegawaiPengikut'));
     }
 
-
     public function update(Request $request, $id)
     {
         $messages = [
@@ -228,7 +227,7 @@ class SppdController extends Controller
             'kendaraan' => 'required',
             'tujuan' => 'required',
             'dasar' => 'nullable',
-            'keterangan' => 'nullable',
+            'perihal' => 'nullable',
             'pegawai_id.*' => [
                 'required',
                 Rule::unique('sppds', 'pegawai_id')->where(function ($query) use ($request) {
@@ -241,8 +240,9 @@ class SppdController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $no_surat = $request->input('no_surat');
 
-        $sppd = Sppd::where('id', $id)->firstOrFail();
+        $sppd = Sppd::where('no_surat', $no_surat)->firstOrFail();
         $sppd->pegawai_id = $request->pegawai;
         $sppd->jenis_sppd_id = $request->jenis;
         $sppd->kegiatan_id = $request->kegiatan;
@@ -251,7 +251,7 @@ class SppdController extends Controller
         $sppd->kendaraan = $request->kendaraan;
         $sppd->tujuan = $request->tujuan;
         $sppd->dasar = $request->filled('dasar') ? $request->dasar : '-';
-        $sppd->keterangan = $request->filled('keterangan') ? $request->keterangan : '-';
+        $sppd->perihal = $request->filled('perihal') ? $request->perihal : '-';
         $sppd->save();
 
 
@@ -263,7 +263,7 @@ class SppdController extends Controller
         if (!empty($nama)) {
             foreach ($nama as $key => $pengikut) {
                 // Cek apakah entitas sudah ada berdasarkan ID pengikut
-                $existingSppd = Sppd::where('id', $id)
+                $existingSppd = Sppd::where('no_surat', $no_surat)
                                     ->where('jenis', 'pengikut')
                                     ->where('pegawai_id', $pengikut)
                                     ->first();
@@ -278,12 +278,12 @@ class SppdController extends Controller
                         'tgl_kembali' => $request->tgl_kembali,
                         'tujuan' => $request->tujuan,
                         'dasar' => $request->filled('dasar') ? $request->dasar : '-',
-                        'keterangan' => $request->filled('keterangan') ? $request->keterangan : '-',
+                        'perihal' => $request->filled('perihal') ? $request->perihal : '-',
                     ]);
                 } else {
                     // Jika entitas belum ada, buat entitas baru
                     $sppd_pengikut = Sppd::create([
-                        'id' => $id,
+                        'no_surat' => $no_surat,
                         'jenis' => 'pengikut',
                         'pegawai_id' => $pengikut,
                         'jenis_sppd_id' => $request->jenis,
@@ -293,7 +293,7 @@ class SppdController extends Controller
                         'tgl_kembali' => $request->tgl_kembali,
                         'tujuan' => $request->tujuan,
                         'dasar' => $request->filled('dasar') ? $request->dasar : '-',
-                        'keterangan' => $request->filled('keterangan') ? $request->keterangan : '-',
+                        'perihal' => $request->filled('perihal') ? $request->perihal : '-',
                     ]);
                 }
             }
