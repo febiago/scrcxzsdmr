@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Exports\SppdExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Terbilang;
+use Illuminate\Support\Facades\DB;
 
 class SppdController extends Controller
 {
@@ -151,6 +152,7 @@ class SppdController extends Controller
         $perihal        = $request->perihal;
 
         // Create Perjalanan Dinas
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $sppd = Sppd::create([
             'no_surat'        => $no_surat,
             'pegawai_id'      => $pegawai_id,
@@ -164,6 +166,7 @@ class SppdController extends Controller
             'dasar'           => $dasar,
             'perihal'           => $perihal
         ]);
+        
 
         $nama = $request->pegawai_id;
         $angkutan = $request->angkutan;
@@ -185,6 +188,7 @@ class SppdController extends Controller
                 ]);
             }
         }
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         return redirect('/sppd')->with('success', 'Perjalanan Dinas berhasil ditambahkan!');
     }
@@ -201,7 +205,6 @@ class SppdController extends Controller
         $sppd = Sppd::where('id', $id)->firstOrFail();
         $pegawais = Pegawai::pluck('nama', 'id');
         $jenis = Jenis_sppd::pluck('nama', 'id');
-        $kegiatans = Kegiatan::pluck('sub_kegiatan', 'id');
 
         // Ambil semua pegawai inti dan hanya pegawai pengikut terkait dengan surat keluar ini
         $pegawaiInti = $sppd->pegawai;
@@ -209,7 +212,7 @@ class SppdController extends Controller
                         ->where('jenis', 'pengikut')
                         ->get(); 
 
-        return view('admin.sppd.edit', $data, compact('pegawais', 'jenis', 'kegiatans', 'sppd', 'pegawaiInti', 'pegawaiPengikut'));
+        return view('admin.sppd.edit', $data, compact('pegawais', 'jenis', 'sppd', 'pegawaiInti', 'pegawaiPengikut'));
     }
 
     public function update(Request $request, $id)
@@ -221,7 +224,7 @@ class SppdController extends Controller
         $validator = Validator::make($request->all(), [
             'no_surat' => 'required',
             'jenis' => 'required',
-            'kegiatan' => 'required',
+            'kegiatan' => 'nullable',
             'tgl_berangkat' => 'required|date',
             'tgl_kembali' => 'required|date',
             'kendaraan' => 'required',
@@ -242,6 +245,7 @@ class SppdController extends Controller
         }
         $no_surat = $request->input('no_surat');
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $sppd = Sppd::where('no_surat', $no_surat)->firstOrFail();
         $sppd->pegawai_id = $request->pegawai;
         $sppd->jenis_sppd_id = $request->jenis;
@@ -298,6 +302,7 @@ class SppdController extends Controller
                 }
             }
         }
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         return redirect()->route('sppd.index')->with('success', 'Perjalanan Dinas berhasil diperbarui!');
 
     }

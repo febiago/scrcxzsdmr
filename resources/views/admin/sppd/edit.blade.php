@@ -31,38 +31,12 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="no_surat">No SPPD</label>
-                                        <input type="text" class="form-control" id="no_surat" value="{{ $sppd->no_surat }}" name="no_surat" required>
-                                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-no_surat"></div>
-                                    
-                                        @error('no_surat')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <label for="dasar" class="control-label">Dasar SPPD</label>
+                                        <input type="text" class="form-control" id="dasar"
+                                            value="{{ $sppd->dasar }}" name="dasar">
+                                        <div class="alert alert-danger mt-2 d-none" role="alert"
+                                            id="alert-dasar"></div>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="pegawai">Pegawai</label>
-                                        <select name="pegawai"
-                                            class="form-control select2 @error('pegawai') is-invalid @enderror">
-                                            @foreach($pegawais as $key => $value)
-                                                <option value="{{ $key }}" {{ $sppd->pegawai_id == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('pegawai')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="kendaraan" class="control-label">Kendaraan</label>
-                                        <input type="text" name="kendaraan" id="kendaraan"
-                                            class="form-control" value="{{ $sppd->kendaraan }}">
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="jenis">Jenis SPPD</label>
                                         <select name="jenis"
@@ -77,20 +51,8 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="kegiatan">Sub Kegiatan</label>
-                                        <select name="kegiatan" id="kegiatan"
-                                            class="form-control select2 @error('kegiatan') is-invalid @enderror">
-                                            @foreach($kegiatans as $key => $value)
-                                                <option value="{{ $key }}" {{ $sppd->kegiatan_id == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('kegiatan')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                        <input hidden type="text" class="form-control" id="kegiatan" value="{{ $sppd->kegiatan_id }}" name="kegiatan" required>
+                                        <input hidden type="text" class="form-control" id="no_surat" value="{{ $sppd->no_surat }}" name="no_surat" required>
                                 </div>
 
                                 <div class="form-row">
@@ -119,12 +81,21 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="dasar" class="control-label">Dasar SPPD</label>
-                                        <input type="text" class="form-control" id="dasar"
-                                            value="{{ $sppd->dasar }}" name="dasar">
-                                        <div class="alert alert-danger mt-2 d-none" role="alert"
-                                            id="alert-dasar"></div>
+                                        <label for="pegawai">Pegawai</label>
+                                        <select name="pegawai"
+                                            class="form-control select2 @error('pegawai') is-invalid @enderror">
+                                            @foreach($pegawais as $key => $value)
+                                                <option value="{{ $key }}" {{ $sppd->pegawai_id == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('pegawai')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
+                                        <input hidden type="text" name="kendaraan" id="kendaraan" class="form-control" value="{{ $sppd->kendaraan }}">
+                            
 
                                     <div class="form-group col-md-6">
                                         <label for="perihal" class="control-label">Perihal</label>
@@ -142,7 +113,7 @@
                                     {{-- Populate existing pengikut here --}}
                                     @if (!empty($pegawaiPengikut))
                                         @foreach($pegawaiPengikut as $index => $pengikut)
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group col-md-5">
                                                 <label for="name" class="control-label">Nama</label>
                                                 <select name="pegawai_id[]"
                                                     class="form-control select2 @error('pegawai_id.*') is-invalid @enderror"
@@ -152,11 +123,8 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="angkutan" class="control-label">Kendaraan</label>
-                                                <input type="text" name="angkutan[]" id="kendaraan-{{ $index }}"
-                                                    class="form-control" value="{{ $pengikut->kendaraan }}">
-                                            </div>
+                                            <input hidden type="text" name="angkutan[]" id="kendaraan-{{ $index }}" class="form-control" value="{{ $pengikut->kendaraan }}">
+
                                             <div class="form-group col-md-1">
                                                 <label for="angkutan" class="control-label">Hapus</label>
                                                 <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $pengikut->id }}" class="btn btn-danger btn-sm form-control"><i class="fa-solid fa-trash"></i></a>

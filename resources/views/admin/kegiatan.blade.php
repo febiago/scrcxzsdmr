@@ -107,7 +107,7 @@
                           <option value="Koordinasi Kegiatan Pemberdayaan Desa">Koordinasi Kegiatan Pemberdayaan Desa</option>
                           <option value="Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum">Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum</option>
                           <option value="Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah">Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah</option>
-                          <option value=" Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa"> Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa</option>
+                          <option value="Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa"> Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa</option>
                             
                         </select>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nm_kegiatan"></div>
@@ -288,8 +288,11 @@
                                 <option value="Administrasi Keuangan Perangkat Daerah" {{ $kegiatan->nm_kegiatan == 'Administrasi Keuangan Perangkat Daerah' ? 'selected' : '' }}>Administrasi Keuangan Perangkat Daerah</option>
                                 <option value="Administrasi Kepegawaian Perangkat Daerah" {{ $kegiatan->nm_kegiatan == 'Administrasi Kepegawaian Perangkat Daerah' ? 'selected' : '' }}>Administrasi Kepegawaian Perangkat Daerah</option>
                                 <option value="Administrasi Umum Perangkat Daerah" {{ $kegiatan->nm_kegiatan == 'Administrasi Umum Perangkat Daerah' ? 'selected' : '' }}>Administrasi Umum Perangkat Daerah</option>
-                                <option value="Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah" {{ $kegiatan->nm_kegiatan == 'Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah' ? 'selected' : '' }}>Penyediaan Jasa Penunjang Urusan Pemerintahan Daerah</option>
-                                <option value="Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah" {{ $kegiatan->nm_kegiatan == 'Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah' ? 'selected' : '' }}>Pemeliharaan Barang Milik Daerah Penunjang Urusan Pemerintahan Daerah</option>
+                                <option value="Penyelenggaraan Urusan Pemerintahan yang Tidak Dilaksanakan oleh Unit Kerja Perangkat Daerah yang Ada di Kecamatan" {{ $kegiatan->nm_kegiatan == 'Penyelenggaraan Urusan Pemerintahan yang Tidak Dilaksanakan oleh Unit Kerja Perangkat Daerah yang Ada di Kecamatan' ? 'selected' : '' }}>Penyelenggaraan Urusan Pemerintahan yang Tidak Dilaksanakan oleh Unit Kerja Perangkat Daerah yang Ada di Kecamatan</option>
+                                <option value="Koordinasi Kegiatan Pemberdayaan Desa" {{ $kegiatan->nm_kegiatan == 'Koordinasi Kegiatan Pemberdayaan Desa' ? 'selected' : '' }}>Koordinasi Kegiatan Pemberdayaan Desa</option>
+                                <option value="Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum" {{ $kegiatan->nm_kegiatan == 'Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum' ? 'selected' : '' }}>Koordinasi Upaya Penyelenggaraan Ketenteraman dan Ketertiban Umum</option>
+                                <option value="Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah" {{ $kegiatan->nm_kegiatan == 'Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah' ? 'selected' : '' }}>Penyelenggaraan Urusan Pemerintahan Umum Sesuai Penugasan Kepala Daerah</option>
+                                <option value="Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa" {{ $kegiatan->nm_kegiatan == 'Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa' ? 'selected' : '' }}>Fasilitasi, Rekomendasi dan Koordinasi Pembinaan dan Pengawasan Pemerintahan Desa</option>
                             </select>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nm_kegiatan-edit"></div>
                         </div>

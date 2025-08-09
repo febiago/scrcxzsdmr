@@ -32,20 +32,19 @@
                                         <input hidden type="text" class="form-control text-right" id="no_surat1" name="no_surat1" value="000.1.2.3" required>
                                         <input hidden type="text" class="form-control text-right" id="no_surat2" name="no_surat2" value="{{ $totalInti }}" required>
                                         <input hidden type="text" class="form-control text-right" id="no_surat3" name="no_surat3" value="408.72/2025" required>
+                                        <input hidden type="text" class="form-control text-right" id="kegiatan" name="kegiatan" value=0 required>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     {!! Form::label('jenis', 'Jenis SPPD') !!}
                                     {!! Form::select('jenis', $jenis, null, ['class' => 'form-control select2']) !!}
                                 </div>
-                                <div class="form-group col-md-4">
-                                    {!! Form::label('kegiatan', 'Sub Kegiatan') !!}
-                                    {!! Form::select('kegiatan', $kegiatans, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
+                                <div class="form-group col-md-6" >
+                                    <label for="name" class="control-label">Dasar SPPD</label>
+                                    <input type="text" class="form-control" id="dasar" value="{{ old('dasar') }}" name="dasar">
+                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-dasar"></div>
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="sisa_anggaran" class="control-label">Sisa Anggaran</label>
-                                    <input type="text" name="sisa_anggaran" id="sisa_anggaran" class="form-control" disabled>
-                                </div>
+
                             </div>
 
                             <div class="form-row">
@@ -68,9 +67,14 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6" >
-                                    <label for="name" class="control-label">Dasar SPPD</label>
-                                    <input type="text" class="form-control" id="dasar" value="{{ old('dasar') }}" name="dasar">
-                                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-dasar"></div>
+                                    {!! Form::label('pegawai', 'Pegawai') !!}
+                                    {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai') ? ' is-invalid' : ''),'placeholder' => '', 'id' => 'pegawai_utama']) !!}
+                                    <input hidden type="text" class="form-control text-right" id="kendaraan" name="kendaraan" required>
+                                    @error('pegawai')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror   
                                 </div>
                                 
                                 <div class="form-group col-md-6" >
@@ -79,24 +83,10 @@
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-perihal"></div>
                                 </div>
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    {!! Form::label('pegawai', 'Pegawai') !!}
-                                    {!! Form::select('pegawai', $pegawais, null, ['class' => 'form-control select2' . ($errors->has('pegawai') ? ' is-invalid' : ''),'placeholder' => '', 'id' => 'pegawai_utama']) !!}
-                                    <input hidden type="text" class="form-control text-right" id="kendaraan" name="kendaraan" required>
-                                    @error('pegawai')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div>
-                            </div>
-
                                 <div id="error"></div>
                                 <h4>Pengikut</h4>
                                 <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah Pengikut</button>
-                            <div id="pengikut-container" class="form-row">
+                                <div id="pengikut-container" class="form-row">
                                 
                             </div>
                             <div class="modal-footer">
@@ -148,23 +138,6 @@ $(function() {
     $(document).on("click", ".btn-remove-pengikut", function() {
       $(this).parents(".input-group").remove();
     });
-    });
-    
-
-    $('#kegiatan').change(function() {
-        var id = $(this).val();
-        if (id != '') {
-            $.ajax({
-                url: 'create/sisa-anggaran/' + id,
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    var sisaAnggaran = data.sisa_anggaran;
-                    var formattedSisaAnggaran = sisaAnggaran.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-                    $('#sisa_anggaran').val(formattedSisaAnggaran);
-                }
-            });
-        }
     });
 
     $('#pegawai_utama').change(function() {
