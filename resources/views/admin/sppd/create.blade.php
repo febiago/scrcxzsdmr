@@ -111,11 +111,20 @@
             '<label for="name" class="control-label">Nama</label>'+
             '{!! Form::select("pegawai_id[]", $pegawais, null, ["class" => "form-control select2", "placeholder" => "", "name" => "pegawai_id[]", "onchange" => "cekUnique(), getKendaraan(this)"]) !!}' +
             '</div>'+
-            '<input hidden type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">';
-        
+            '<input hidden type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">' +
+            '<div class="form-group col-md-1">' +
+            '<label class="control-label d-none d-md-block">&nbsp;</label>' +
+            '<a href="javascript:void(0)" class="btn btn-danger btn-sm form-control btn-remove-pengikut"><i class="fa-solid fa-trash"></i></a>' +
+            '</div>';
+
         $('#pengikut-container').append(html);
         $(".select2").select2();
     });
+
+    $('#pengikut-container').on('click', '.btn-remove-pengikut', function () {
+        $(this).closest('.form-row').remove();
+    });
+
 $(function() {
     $('#tgl_berangkat').daterangepicker({
         singleDatePicker: true,
@@ -134,10 +143,7 @@ $(function() {
         }
     });
 });
-      // Hapus Pengikut
-    $(document).on("click", ".btn-remove-pengikut", function() {
-      $(this).parents(".input-group").remove();
-    });
+     
     });
 
     $('#pegawai_utama').change(function() {

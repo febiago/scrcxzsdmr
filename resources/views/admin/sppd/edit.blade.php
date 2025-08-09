@@ -106,8 +106,7 @@
                                     </div>
                                 </div>
                                 <h4>Pengikut</h4>
-                                <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah
-                                    Pengikut</button>
+                                <button type="button" class="btn btn-success mb-2" id="tambah-pengikut">Tambah Pengikut</button>
                                 <div id="error"></div>
                                 <div id="pengikut-container" class="form-row">
                                     {{-- Populate existing pengikut here --}}

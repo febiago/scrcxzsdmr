@@ -15,7 +15,8 @@ class TujuanController extends Controller
     public function index()
     {
         $tujuans = Tujuan::all();
-        return view('admin.tujuan.index', compact('tujuans'));
+        $data = ['type_menu' => 'tujuan'];
+        return view('admin.tujuan.index',$data ,compact('tujuans'));
     }
 
     /**

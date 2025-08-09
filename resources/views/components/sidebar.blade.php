@@ -43,6 +43,10 @@
                         <a class="nav-link"
                             href="{{ url('jenis') }}"><span>Jenis SPPD</span></a>
                     </li>
+                    <li class="{{ Request::is('tujuan') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ url('tujuan') }}"><span>Tujuan</span></a>
+                    </li>
                 </ul>
             </li>
             @endif
