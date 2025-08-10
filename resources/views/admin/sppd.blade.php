@@ -30,7 +30,7 @@
                                             <th width="15%">Nama</th>
                                             <th>Perihal</th>
                                             <th width="15%">Tujuan</th>
-                                            <th width="12%">Aksi</th>
+                                            <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-sppd">
@@ -49,7 +49,8 @@
                                             <td class="text-center">
                                                 @if($sppd->jenis == 'inti')
                                                 <a href="{{ route('sppd.edit', ['sppd' => $sppd->id]) }}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></a>
-                                                <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-info btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
+                                                <a href="{{ route('pdf.sppd', ['id' => $sppd->id]) }}" id="btn-print-sppd" class="btn btn-warning btn-sm" target="_blank"><i class="fa-solid fa-print"></i></i></a>
+                                                <a href="{{ route('sppd.export-docx', ['id' => $sppd->id ?? $id]) }}" class="btn btn-info btn-sm"><i class="fa-regular fa-file-word"></i></a>
                                                 <a href="javascript:void(0)" id="btn-delete-sppd" data-no_surat="{{ $sppd->no_surat }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                                 @else
                                                 @endif

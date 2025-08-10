@@ -59,8 +59,8 @@
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tgl_kembali"></div>
                                 </div>
                                 <div class="form-group col-md-6" >
-                                    <label for="name" class="control-label">Tujuan</label>
-                                    <input type="text" class="form-control" id="tujuan" value="{{ old('tujuan') }}" name="tujuan" required>
+                                    {!! Form::label('tujuan', 'Tujuan') !!}
+                                    {!! Form::select('tujuan', $tujuans, null, ['class' => 'form-control select2']) !!}
                                     <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tujuan"></div>
                                 </div>
                             </div>
@@ -107,14 +107,16 @@
     $(document).ready(function () {
     $('#tambah-pengikut').on('click', function () {
         var index = $('select[name="pegawai_id[]"]').length;
-        var html = '<div class="form-group col-md-6" >' +
+        var html = '<div class="form-row col-md-6 pengikut-item">' +
+            '<div class="form-group col-md-10" >' +
             '<label for="name" class="control-label">Nama</label>'+
             '{!! Form::select("pegawai_id[]", $pegawais, null, ["class" => "form-control select2", "placeholder" => "", "name" => "pegawai_id[]", "onchange" => "cekUnique(), getKendaraan(this)"]) !!}' +
             '</div>'+
-            '<input hidden type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">' +
-            '<div class="form-group col-md-1">' +
+            '<div class="form-group col-md-2">' +
             '<label class="control-label d-none d-md-block">&nbsp;</label>' +
+            '<input hidden type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">' +
             '<a href="javascript:void(0)" class="btn btn-danger btn-sm form-control btn-remove-pengikut"><i class="fa-solid fa-trash"></i></a>' +
+            '</div>' +
             '</div>';
 
         $('#pengikut-container').append(html);
@@ -122,27 +124,27 @@
     });
 
     $('#pengikut-container').on('click', '.btn-remove-pengikut', function () {
-        $(this).closest('.form-row').remove();
+        $(this).closest('.pengikut-item').remove();
     });
 
-$(function() {
-    $('#tgl_berangkat').daterangepicker({
-        singleDatePicker: true,
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
-    }, function(start) {
-        // Saat tanggal berangkat dipilih/ganti, set tgl_kembali sama
-        $('#tgl_kembali').val(start.format('DD/MM/YYYY'));
-    });
+    $(function() {
+        $('#tgl_berangkat').daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        }, function(start) {
+            // Saat tanggal berangkat dipilih/ganti, set tgl_kembali sama
+            $('#tgl_kembali').val(start.format('DD/MM/YYYY'));
+        });
 
-    $('#tgl_kembali').daterangepicker({
-        singleDatePicker: true,
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
+        $('#tgl_kembali').daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        });
     });
-});
      
     });
 

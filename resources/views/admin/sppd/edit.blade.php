@@ -112,7 +112,8 @@
                                     {{-- Populate existing pengikut here --}}
                                     @if (!empty($pegawaiPengikut))
                                         @foreach($pegawaiPengikut as $index => $pengikut)
-                                            <div class="form-group col-md-5">
+                                        <div class="form-row col-md-6 pengikut-db">
+                                            <div class="form-group col-md-10">
                                                 <label for="name" class="control-label">Nama</label>
                                                 <select name="pegawai_id[]"
                                                     class="form-control select2 @error('pegawai_id.*') is-invalid @enderror"
@@ -124,10 +125,11 @@
                                             </div>
                                             <input hidden type="text" name="angkutan[]" id="kendaraan-{{ $index }}" class="form-control" value="{{ $pengikut->kendaraan }}">
 
-                                            <div class="form-group col-md-1">
+                                            <div class="form-group col-md-2">
                                                 <label for="angkutan" class="control-label">Hapus</label>
                                                 <a href="javascript:void(0)" id="btn-delete-sppd" data-id="{{ $pengikut->id }}" class="btn btn-danger btn-sm form-control"><i class="fa-solid fa-trash"></i></a>
                                             </div>
+                                        </div>
                                         @endforeach
                                     @endif
 
@@ -151,13 +153,16 @@
     $(document).ready(function () {
         $('#tambah-pengikut').on('click', function () {
             var index = $('select[name="pegawai_id[]"]').length;
-            var html = '<div class="form-group col-md-4" >' +
-                '<label for="name" class="control-label">Nama</label>' +
+            var html = '<div class="form-row col-md-6 pengikut-item">' +
+                '<div class="form-group col-md-10" >' +
+                '<label for="name" class="control-label">Nama</label>'+
                 '{!! Form::select("pegawai_id[]", $pegawais, null, ["class" => "form-control select2", "placeholder" => "", "name" => "pegawai_id[]", "onchange" => "cekUnique(), getKendaraan(this)"]) !!}' +
-                '</div>' +
+                '</div>'+
                 '<div class="form-group col-md-2">' +
-                '<label for="angkutan" class="control-label">Kendaraan</label>' +
-                '<input type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">' +
+                '<label class="control-label d-none d-md-block">&nbsp;</label>' +
+                '<input hidden type="text" name="angkutan[]" id="kendaraan-' + index + '" class="form-control">' +
+                '<a href="javascript:void(0)" class="btn btn-danger btn-sm form-control btn-remove-pengikut"><i class="fa-solid fa-trash"></i></a>' +
+                '</div>' +
                 '</div>';
 
             $('#pengikut-container').append(html);
@@ -165,8 +170,8 @@
         });
 
         // Hapus Pengikut
-        $('#btn-remove-pengikut').on('click', function () {
-            $(this).parents(".form-row").remove();
+        $('#pengikut-container').on('click', '.btn-remove-pengikut', function () {
+            $(this).closest('.pengikut-item').remove();
         });
         
     });

@@ -9,7 +9,7 @@ class Tujuan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama',
+        'tujuan',
         'pejabat',
     ];
 

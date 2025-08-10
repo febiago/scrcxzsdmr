@@ -25,7 +25,6 @@ class SppdExport implements FromCollection, WithHeadings
                     'perihal' => $sppd->perihal, // Perihal dari relasi surat_keluar
                     'pangkat' => $sppd->pegawai->pangkat, // Pangkat dari relasi pegawai
                     'tujuan' => $sppd->tujuan,
-                    'sub_kegiatan' => $sppd->kegiatan->sub_kegiatan,
                     'tgl_berangkat' => $sppd->tgl_berangkat,
                     'tgl_kembali' => $sppd->tgl_kembali,
                     'biaya' => $sppd->jenis_sppd->biaya,
@@ -46,7 +45,6 @@ class SppdExport implements FromCollection, WithHeadings
             'Perihal',
             'Pangkat',
             'Tujuan',
-            'Sub Kegiatan',
             'Tanggal Berangkat',
             'Tanggal Kembali',
             'Biaya',

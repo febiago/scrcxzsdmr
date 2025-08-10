@@ -5,6 +5,7 @@ use App\Models\Sppd;
 use App\Models\Pegawai;
 use App\Models\Jenis_sppd;
 use App\Models\Kegiatan;
+use App\Models\Tujuan;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use PDF;
@@ -14,6 +15,8 @@ use App\Exports\SppdExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Terbilang;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Services\SppdDocxBuilder;
 
 class SppdController extends Controller
 {
@@ -36,10 +39,10 @@ class SppdController extends Controller
         
         $pegawais = Pegawai::pluck('nama', 'id');
         $jenis = Jenis_sppd::pluck('nama', 'id');
-        $kegiatans = Kegiatan::pluck('sub_kegiatan', 'id');
+        $tujuans = Tujuan::pluck('tujuan', 'tujuan');
         $totalInti = Sppd::where('jenis', 'inti')->count() + 1;
 
-        return view('admin.sppd.create', $data, compact('pegawais','jenis','kegiatans', 'totalInti'));
+        return view('admin.sppd.create', $data, compact('pegawais','jenis', 'totalInti', 'tujuans'));
     }
 
     public function getSisaAnggaran($id)
@@ -347,51 +350,73 @@ class SppdController extends Controller
         }
     }
 
-    public function printPDF($id)
+    private function buildViewData($id): array
     {
-        $data = Sppd::find($id);
+        $data = Sppd::findOrFail($id);
+
         $no_surat = $data->no_surat;
-        $sppd = Sppd::with(['pegawai', 'jenis_sppd'])
-                 ->where('no_surat', $no_surat)
-                 ->get();
-        $pengikut = Sppd::with(['pegawai', 'jenis_sppd'])
-                 ->where('no_surat', $no_surat)
-                 ->where('jenis', 'pengikut')
-                 ->get();
-        $jenis = Jenis_sppd::where('id', $data->jenis_sppd_id)->first();
-        $jumlah = count($sppd)*$jenis->biaya;
+        $sppd = Sppd::with(['pegawai','jenis_sppd'])
+            ->where('no_surat', $no_surat)
+            ->get();
+
+        $pengikut = Sppd::with(['pegawai','jenis_sppd'])
+            ->where('no_surat', $no_surat)
+            ->where('jenis', 'pengikut')
+            ->get();
+
+        $jenis = Jenis_sppd::where('id', $data->jenis_sppd_id)->firstOrFail();
+        $jumlah = count($sppd) * $jenis->biaya;
         $terbilangku = Terbilang::make($jumlah);
 
         $camat = Pegawai::where('jabatan', 'like', '%Camat%')->first();
         $bendahara = Pegawai::where('jabatan', 'like', '%Bendahara%')->first();
-        $tgl_berangkat = Carbon::parse($data->tgl_berangkat)->isoFormat(('DD MMMM Y'));
-        $waktu = Carbon::parse($data->tgl_berangkat)->isoFormat(('dddd, DD MMMM Y'));
-        $tgl_kembali = Carbon::parse($data->tgl_kembali)->isoFormat(('DD MMMM Y'));
 
+        $tgl_berangkat = Carbon::parse($data->tgl_berangkat)->isoFormat('DD MMMM Y');
+        $waktu         = Carbon::parse($data->tgl_berangkat)->isoFormat('dddd, DD MMMM Y');
+        $tgl_kembali   = Carbon::parse($data->tgl_kembali)->isoFormat('DD MMMM Y');
 
         $carbonTglBerangkat = Carbon::createFromFormat('Y-m-d', $data->tgl_berangkat);
-        $carbonTglKembali = Carbon::createFromFormat('Y-m-d', $data->tgl_kembali);
+        $carbonTglKembali   = Carbon::createFromFormat('Y-m-d', $data->tgl_kembali);
         $hari = $carbonTglKembali->diffInDays($carbonTglBerangkat);
 
-        $pdf = PDF::loadView('pdf.sppd', [
-            'data' => $sppd, 
-            'tgl_berangkat' => $tgl_berangkat, 
-            'tgl_kembali' => $tgl_kembali,
-            'camat' => $camat,
-            'bendahara' => $bendahara,
-            'hari' => $hari,
-            'pengikut' => $pengikut,
-            'jumlah' => $jumlah,
-            'waktu' => $waktu
-
-        ]);
-
-        return $pdf->stream('sppd.pdf');
+        return [
+            'data'          => $sppd,
+            'tgl_berangkat' => $tgl_berangkat,
+            'tgl_kembali'   => $tgl_kembali,
+            'camat'         => $camat,
+            'bendahara'     => $bendahara,
+            'hari'          => $hari,
+            'pengikut'      => $pengikut,
+            'jumlah'        => $jumlah,
+            'waktu'         => $waktu,
+            // kalau view kamu butuh ini:
+            'terbilang'     => $terbilangku,
+            // sumber data induk jika perlu:
+            'first'         => $data,
+        ];
     }
 
-    public function exportXls()
+    public function printPDF($id)
     {
-        return Excel::download(new SppdExport, 'laporan-sppd.xlsx');
+        $viewData = $this->buildViewData($id);
+        $nomor = optional($viewData['first'])->no_surat ?? $id;
+        $base  = 'SPPD-'.Str::slug($nomor);
+
+        $pdf = Pdf::loadView('pdf.sppd', $viewData)->setPaper('a4');
+        return $pdf->stream("{$base}.pdf");
+    }
+
+    public function exportDocx(Request $request, $id)
+    {
+        $viewData = $this->buildViewData($id);
+
+        // Nama file rapi
+        $nomor = optional($viewData['first'])->no_surat ?? $id;
+        $base  = 'SPPD-'.Str::slug($nomor);
+
+        $path = app(SppdDocxBuilder::class)->build($viewData, "{$base}.docx");
+
+        return response()->download($path, "{$base}.docx")->deleteFileAfterSend(true);
     }
 
     public function previewExport()
@@ -404,6 +429,9 @@ class SppdController extends Controller
         return view('admin.sppd.preview', $data,compact('sppds'));
     }
 
-
+        public function exportXls()
+    {
+        return Excel::download(new SppdExport, 'laporan-sppd.xlsx');
+    }
 
 }
