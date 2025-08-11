@@ -35,9 +35,9 @@
                 <td valign="top" width="100%" align="center">
                     <b id="kop">PEMERINTAH KABUPATEN PACITAN</b>
                     <br><b id="kop">KECAMATAN SUDIMORO</b>
-                    <br>Jl. Sudimoro no 22, (0357) 421001
+                    <br>Jln. Raya Sudimoro No 22 Kode Pos 63573
                     <br>Website : www.sudimoro.pacitankab.go.id
-                    <br>Email : camat_sudimoro@pacitankab.go.id
+                    <br>Email : kecamatan.sudimoro12@gmail.com
                 </td>
             </tr>
         </table>
@@ -170,9 +170,9 @@
                 <td valign="top" width="100%" align="center">
                     <b id="kop">PEMERINTAH KABUPATEN PACITAN</b>
                     <br><b id="kop">KECAMATAN SUDIMORO</b>
-                    <br>Jl. Sudimoro no 22, (0357) 421001
+                    <br>Jln. Raya Sudimoro No 22 Kode Pos 63573
                     <br>Website : www.sudimoro.pacitankab.go.id
-                    <br>Email : camat_sudimoro@pacitankab.go.id
+                    <br>Email : kecamatan.sudimoro12@gmail.com
                 </td>
             </tr>
         </table>
