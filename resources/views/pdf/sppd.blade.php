@@ -172,7 +172,7 @@
                     <br><b id="kop">KECAMATAN SUDIMORO</b>
                     <br>Jl. Sudimoro no 22, (0357) 421001
                     <br>Website : www.sudimoro.pacitankab.go.id
-                    <br>Email : kecsudimoro@gmail.com
+                    <br>Email : camat_sudimoro@pacitankab.go.id
                 </td>
             </tr>
         </table>
