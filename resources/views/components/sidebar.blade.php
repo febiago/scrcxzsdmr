@@ -35,9 +35,9 @@
                         <a class="nav-link"
                             href="{{ url('pegawai') }}"></i> <span>Pegawai</span></a>
                     </li>
-                    <li class="{{ Request::is('kegiatan') ? 'active' : '' }}">
+                    <li class="{{ Request::is('dasar') ? 'active' : '' }}">
                         <a class="nav-link"
-                            href="{{ url('kegiatan') }}"><span>Kegiatan</span></a>
+                            href="{{ url('dasar') }}"><span>Dasar SPPD</span></a>
                     </li>
                     <li class="{{ Request::is('jenis') ? 'active' : '' }}">
                         <a class="nav-link"

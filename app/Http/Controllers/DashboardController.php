@@ -18,30 +18,16 @@ class DashboardController extends Controller
     {
         $pegawai = Pegawai::count();
         $sppd = Sppd::count();
-        $total_anggaran = Kegiatan::sum('anggaran');
-    
-        // Ambil semua kegiatan
-        $kegiatans = Kegiatan::all();
-
-        // Hitung total sisa anggaran
-        $total_sisa_anggaran = $kegiatans->sum(function($kegiatan) {
-            // Ambil semua SPPD pada kegiatan ini
-            $sppds = Sppd::where('kegiatan_id', $kegiatan->id)->get();
-            $total_realisasi = 0;
-            foreach ($sppds as $sppd) {
-                $jenis = Jenis_sppd::find($sppd->jenis_sppd_id);
-                $biaya = $jenis ? $jenis->biaya : 0;
-                $total_realisasi += $biaya;
-            }
-            return $kegiatan->anggaran - $total_realisasi;
-        });
+        $spt = Sppd::where('jenis', 'inti')->count();
+        $total = Sppd::with('jenis_sppd')->get()
+                ->sum(fn($row) => $row->jenis_sppd->biaya ?? 0);
     
         $data = [
             'type_menu' => 'dashboard',
-            'sisa_anggaran' => $total_sisa_anggaran
+            'total' => $total,
+            'spt' => $spt
         ];
-    
-        return view('admin.dashboard', $data, compact('sppd','pegawai','total_anggaran'));
+        return view('admin.dashboard', $data, compact('sppd','pegawai','total','spt'));
     }
 
     
