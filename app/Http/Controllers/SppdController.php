@@ -6,6 +6,7 @@ use App\Models\Pegawai;
 use App\Models\Jenis_sppd;
 use App\Models\Kegiatan;
 use App\Models\Tujuan;
+use App\Models\DasarSppd;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use PDF;
@@ -379,6 +380,8 @@ class SppdController extends Controller
         $carbonTglKembali   = Carbon::createFromFormat('Y-m-d', $data->tgl_kembali);
         $hari = $carbonTglKembali->diffInDays($carbonTglBerangkat);
 
+        $tujuan = Tujuan::where('tujuan', $data->tujuan)->first();
+        $dasars = DasarSppd::orderBy('nomor')->get();
         return [
             'data'          => $sppd,
             'tgl_berangkat' => $tgl_berangkat,
@@ -389,6 +392,8 @@ class SppdController extends Controller
             'pengikut'      => $pengikut,
             'jumlah'        => $jumlah,
             'waktu'         => $waktu,
+            'tujuan'        => $tujuan,
+            'dasars'       => $dasars,
             // kalau view kamu butuh ini:
             'terbilang'     => $terbilangku,
             // sumber data induk jika perlu:

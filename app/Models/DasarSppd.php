@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class DasarSppd extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nomor',
+        'uraian',
+    ];
+
 }

@@ -7,79 +7,52 @@ use Illuminate\Http\Request;
 
 class DasarSppdController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $dasars = DasarSppd::all();
+        $data = ['type_menu' => 'nomor'];
+        return view('admin.dasar.index',$data ,compact('dasars'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.dasar.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nomor' => 'required',
+            'uraian' => 'required',
+        ]);
+        DasarSppd::create($request->only('nomor', 'uraian'));
+        return redirect()->route('dasar.index')->with('success', 'DasarSppd berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DasarSppd  $dasarSppd
-     * @return \Illuminate\Http\Response
-     */
-    public function show(DasarSppd $dasarSppd)
+    public function show(DasarSppd $dasar)
     {
-        //
+        return view('admin.dasar.show', compact('dasar'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\DasarSppd  $dasarSppd
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DasarSppd $dasarSppd)
+    public function edit(DasarSppd $dasar)
     {
-        //
+        return view('admin.dasar.edit', compact('dasar'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DasarSppd  $dasarSppd
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, DasarSppd $dasarSppd)
+    public function update(Request $request, DasarSppd $dasar)
     {
-        //
+        $request->validate([
+            'nomor' => 'required',
+            'uraian' => 'required',
+        ]);
+        $dasar->update($request->only('nomor', 'uraian'));
+        return redirect()->route('dasar.index')->with('success', 'DasarSppd berhasil diupdate!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\DasarSppd  $dasarSppd
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(DasarSppd $dasarSppd)
+    public function destroy(DasarSppd $dasar)
     {
-        //
+        $dasar->delete();
+        return redirect()->route('dasar.index')->with('success', 'DasarSppd berhasil dihapus!');
     }
 }

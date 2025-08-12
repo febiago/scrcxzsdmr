@@ -49,6 +49,17 @@
         @endforeach
         <br />
         <table border="0">
+            {{--  @foreach($dasars as $dasar)
+            <tr>
+                @if($loop->first)
+                    <td width="60">Dasar &nbsp; &nbsp; &nbsp; &nbsp; :</td>
+                @else
+                    <td width="60"></td>
+                @endif
+                <td>{{ $dasar->nomor }}</td>
+                <td>{{ $dasar->uraian }}</td>
+            </tr>
+            @endforeach --}}
             <tr>
                 <td width="60">Dasar &nbsp; &nbsp; &nbsp; &nbsp; :</td>
                 <td>1. </td>
@@ -72,8 +83,8 @@
             <tr>
                 <td width="60"></td>
                 <td>5. </td>
-                @foreach($data->take(1) as $dasar)
-                <td>{{ $dasar->dasar }}</td>
+                @foreach($data->take(1) as $das)
+                <td>{{ $das->dasar }}</td>
                 @endforeach
             </tr>
         </table>
@@ -581,13 +592,14 @@
             <td style="border-left: none;" height:="80px" width="48%">
                 Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : {{ $sppd->tujuan }}
                 <br>Pada Tanggal&nbsp; : {{ $tgl_berangkat }}
-                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                <br> <br> <br> <br> <br> <br>
+                <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 
+                <br> <br> <br> <br> <br> <br><center><b> {{  $tujuan->pejabat ?? ' ';  }}</b></center>
             </td>
             <td width="48%">
                 Berangkat dari &nbsp; : {{ $sppd->tujuan }}
                 <br>Ke &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : Kecamatan Sudimoro
                 <br>Pada tanggal&nbsp; &nbsp; &nbsp; : {{ $tgl_kembali }}
+                <br> <br> <br> <br> <br> <br><center><b> {{  $tujuan->pejabat ?? ' ';  }}</b></center>
             </td>
         </tr>
         <tr>
@@ -596,7 +608,7 @@
                 Tiba di &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
                 <br>Pada Tanggal&nbsp; :
                 <br>Kepala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :
-                <br> <br> <br> <br> <br> <br>
+                <br> <br> <br> <br> <br> <br> 
             </td>
             <td width="48%">
                 Berangkat dari &nbsp; :

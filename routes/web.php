@@ -74,4 +74,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/kegiatan', KegiatanController::class);
     Route::resource('/jenis', JenisSppdController::class);
     Route::resource('/tujuan', TujuanController::class);
+    Route::resource('/dasar', App\Http\Controllers\DasarSppdController::class);
 });
