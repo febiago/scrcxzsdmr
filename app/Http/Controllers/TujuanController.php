@@ -39,7 +39,7 @@ class TujuanController extends Controller
     {
         $request->validate([
             'tujuan' => 'required',
-            'pejabat' => 'required',
+            'pejabat' => 'nullable',
         ]);
         Tujuan::create($request->only('tujuan', 'pejabat'));
         return redirect()->route('tujuan.index')->with('success', 'Tujuan berhasil ditambahkan!');

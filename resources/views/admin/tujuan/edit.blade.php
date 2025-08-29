@@ -13,8 +13,13 @@
                     @method('PUT')
                     <div class="form-group">
                         <label>Nama Tujuan</label>
-                        <input type="text" name="nama" class="form-control" required value="{{ old('nama', $tujuan->nama) }}">
-                        @error('nama')<div class="text-danger">{{ $message }}</div>@enderror
+                        <input type="text" name="tujuan" class="form-control" required value="{{ old('tujuan', $tujuan->tujuan) }}">
+                        @error('tujuan')<div class="text-danger">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Pejabat </label>
+                        <input type="text" name="pejabat" class="form-control" required value="{{ old('pejabat', $tujuan->pejabat) }}">
+                        @error('pejabat')<div class="text-danger">{{ $message }}</div>@enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                     <a href="{{ route('tujuan.index') }}" class="btn btn-secondary">Batal</a>

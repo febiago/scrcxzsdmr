@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group">
                         <label>Pejabat</label>
-                        <input type="text" name="pejabat" class="form-control" required placeholder="Pejabat Penandatangan SPPD" value="{{ old('pejabat') }}">
+                        <input type="text" name="pejabat" class="form-control" placeholder="Pejabat Penandatangan SPPD" value="{{ old('pejabat') }}">
                         @error('pejabat')<div class="text-danger">{{ $message }}</div>@enderror
                     </div>
                     <button type="submit" class="btn btn-success">Simpan</button>
