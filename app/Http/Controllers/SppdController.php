@@ -108,29 +108,31 @@ class SppdController extends Controller
     {
         $messages = [
             'pegawai.unique' => 'Perjalanan Dinas Ganda',
+            'pegawai_id.*.distinct' => 'Pengikut ada yang di input 2 kali coba cek lagi.',
         ];
 
         $validator = Validator::make($request->all(), [
-          'no_surat1'      => 'required',
-          'no_surat2'      => 'required',
-          'no_surat3'      => 'required',
-          'pegawai'       => ['required',
-                                  Rule::unique('sppds', 'pegawai_id')->where(function ($query) use ($request) {
-                                      return $query->where('tgl_berangkat', $request->tgl_berangkat);
-                                  })
-                              ],
-          'jenis'         => 'required',
-          'kegiatan'      => 'required',
-          'tgl_berangkat' => 'required',
-          'tgl_kembali'   => 'required',
-          'kendaraan'     => 'required',
-          'tujuan'        => 'required',
-          'dasar'         => 'nullable',
-          'perihal'       => 'required',
-                            ], $messages);
+            'no_surat1'      => 'required',
+            'no_surat2'      => 'required',
+            'no_surat3'      => 'required',
+            'pegawai'        => ['required',
+                Rule::unique('sppds', 'pegawai_id')->where(function ($query) use ($request) {
+                    return $query->where('tgl_berangkat', $request->tgl_berangkat);
+                })
+            ],
+            'jenis'          => 'required',
+            'kegiatan'       => 'required',
+            'tgl_berangkat'  => 'required',
+            'tgl_kembali'    => 'required',
+            'kendaraan'      => 'required',
+            'tujuan'         => 'required',
+            'dasar'          => 'nullable',
+            'perihal'        => 'required',
+            'pegawai_id.*'   => ['distinct'],
+        ], $messages);
 
         if ($validator->fails()) {
-    return response()->json([
+            return response()->json([
         'status' => 'error',
         'errors' => $validator->errors()
     ], 422);
